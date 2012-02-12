@@ -31,6 +31,12 @@ Jithub is a simple Clojure library for interacting with the Github API.
 )
 ```
 
+## Responses
+
+At the moment methods that request JSON will have that returned as Clojure data
+structures, and where that doesn't make sense the response map is returned (with
+headers and such).
+
 ## Current Scope
 
 This code was extracted from part of another project as it might be useful, but this
