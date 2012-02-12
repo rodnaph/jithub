@@ -1,6 +1,14 @@
-(ns jithub.test.core
-  (:use [jithub.core])
-  (:use [clojure.test]))
 
-(deftest replace-me ;; FIXME: write
-  (is false "No tests have been written."))
+(ns jithub.test.core
+    (:use [jithub.core])
+    (:use [clojure.test]))
+
+(defapi needs-repo "" [] true)
+
+(defn- has-repo [] (with-repo {} (needs-repo)))
+(defn- no-repo [] (needs-repo))
+
+(deftest test-exception-when-repo-not-bound
+    (is (has-repo))
+    (is (thrown? Exception (no-repo))))
+
