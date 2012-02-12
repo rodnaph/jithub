@@ -21,13 +21,13 @@
     "Fetches upload request parameters, for saving to S3"
     [file title description]
     (http/post (dlurl)
-        { :basic-auth [(:user *repo*) (:password *repo*)]
-          :body (generate-string {
-              :name title
-              :size (.length file)
-              :description description
-              :content_type (URLConnection/guessContentTypeFromName (.getName file))
-          })}))
+        (basic-auth {
+            :body (generate-string {
+                :name title
+                :size (.length file)
+                :description description
+                :content_type (URLConnection/guessContentTypeFromName (.getName file))
+            })})))
 
 (defn- create-s3
     "Upload a file to S3, with params from Github"
@@ -61,7 +61,7 @@
           req (create-github file title description)
           params (parse-string (:body req) true)
           res (create-s3 file params)]
-              (parse-string (:body res))))
+              (parse-string (:body res) true)))
 
 (defapi show
     "Fetch a specific download, returning data as map"
@@ -73,5 +73,5 @@
     "Delete a specific download, returning response as map"
     [id]
     (http/delete (format "%s/%d" (dlurl) id)
-        { :basic-auth [(:user *repo*) (:password *repo*)] }))
+                 (basic-auth)))
 

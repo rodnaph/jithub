@@ -21,3 +21,9 @@
     []
     "https://api.github.com")
 
+(defn basic-auth
+    "Helper for creating map with basic-auth data"
+    ([] (basic-auth {}))
+    ([data] (merge {:basic-auth [(:user *repo*) (:password *repo*)]} 
+                   data)))
+
