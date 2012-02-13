@@ -1,6 +1,7 @@
 
 (ns jithub.repos.downloads
-    (:use jithub.util
+    (:use jithub.core
+          jithub.util
           cheshire.core)
     (:require [clj-http.client :as http]
               [clojure.java.io :as io])
